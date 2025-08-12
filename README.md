@@ -1,1 +1,1 @@
-Demo https://ai-trip-planner-self.vercel.app/
+Demo ai-trip-planner-2cwz-git-main-swati0228s-projects.vercel.app
