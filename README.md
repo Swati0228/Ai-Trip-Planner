@@ -1,4 +1,4 @@
-# ✨ AI TRIP PLANNER ✨
+# ✨ SMART TRIP PLANNER ✨
 
 Your **personal AI-powered travel companion** — plan **customized itineraries** with ease, discover new destinations, and make your trip unforgettable! 🌍✈️
 
