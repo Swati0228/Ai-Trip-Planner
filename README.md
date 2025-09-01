@@ -29,7 +29,7 @@ Your **personal AI-powered travel companion** — plan **customized itineraries*
 
 ## 🔗 LIVE DEMO
 
-[🌍 **Click here to explore the AI Trip Planner**](https://ai-trip-planner-2cwz.vercel.app)
+[🌍 **Click here to explore the AI Trip Planner**](https://ai-trip-planner-isd2.vercel.app)
 
 ---
 
