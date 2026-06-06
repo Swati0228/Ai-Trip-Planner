@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="placeholder-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255, 255, 255, 0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#placeholder-grad)" />
+  <rect width="800" height="400" fill="url(#grid)" />
+  
+  <!-- Content -->
+  <g transform="translate(400, 180)" text-anchor="middle" fill="white">
+    <!-- Globe/Travel Icon -->
+    <circle cx="0" cy="0" r="50" fill="none" stroke="white" stroke-width="3" stroke-opacity="0.9" />
+    <ellipse cx="0" cy="0" rx="20" ry="50" fill="none" stroke="white" stroke-width="2" stroke-opacity="0.7" />
+    <line x1="-50" y1="0" x2="50" y2="0" stroke="white" stroke-width="2" stroke-opacity="0.7" />
+    <path d="M-35,-25 Q0,-15 35,-25" fill="none" stroke="white" stroke-width="2" stroke-opacity="0.5" />
+    <path d="M-35,25 Q0,15 35,25" fill="none" stroke="white" stroke-width="2" stroke-opacity="0.5" />
+    
+    <!-- Stylized Plane -->
+    <path d="M-15,-60 L0,-45 L15,-60 L5,-40 L25,-35 L0,-15 L-25,-35 L-5,-40 Z" fill="white" transform="rotate(45)" opacity="0.95"/>
+    
+    <text x="0" y="90" font-family="'Inter', system-ui, sans-serif" font-size="24" font-weight="600" letter-spacing="1">DISCOVER YOUR ADVENTURE</text>
+    <text x="0" y="115" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="400" opacity="0.7">AI Trip Planner</text>
+  </g>
+</svg>
