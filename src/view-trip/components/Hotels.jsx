@@ -6,8 +6,10 @@ function HotelCard({ hotel }) {
   const [photoUrl, setPhotoUrl] = useState(null);
 
   useEffect(() => {
-    fetchPhoto();
-  }, []);
+    if (hotel) {
+      fetchPhoto();
+    }
+  }, [hotel]);
 
   const fetchPhoto = async () => {
     try {
@@ -33,7 +35,7 @@ function HotelCard({ hotel }) {
     >
       <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 cursor-pointer overflow-hidden">
         <img
-          src={photoUrl || "/fallback-hotel.jpg"}
+          src={photoUrl || "/fallback-hotel.svg"}
           alt={hotel?.hotelName}
           className="h-40 w-full object-cover"
         />
