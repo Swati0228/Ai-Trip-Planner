@@ -9,11 +9,14 @@ function PlaceCardItem({ place }) {
     const [photoUrl, setPhotoUrl] = useState();
 
     useEffect(() => {
-        place && GetPlaceImg();
+        if (place) {
+            GetPlaceImg();
+        }
     }, [place]);
 
     const GetPlaceImg = async () => {
         try {
+            if (!place?.placeName) return;
             const result = await GetPlaceDetails({
                 textQuery: place.placeName,
             });
@@ -41,8 +44,8 @@ function PlaceCardItem({ place }) {
                 {/* Image */}
                 <div>
                     <img
-                        src={photoUrl || '/road-trip-vocation.jpg'}
-                        alt={place.placeName}
+                        src={photoUrl || '/placeholder.svg'}
+                        alt={place?.placeName || 'Place Image'}
                         className="w-[340px] h-[104%] rounded-lg object-cover"
                     />
                 </div>
