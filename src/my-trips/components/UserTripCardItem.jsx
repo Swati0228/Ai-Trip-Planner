@@ -10,20 +10,32 @@ function UserTripCardItem({ trip }) {
   }, [trip])
 
   const GetPlacePhoto = async () => {
-    const data = {
-      textQuery: trip?.userSelection?.location?.label
+    try {
+      const data = {
+        textQuery: trip?.userSelection?.location?.label
+      };
+      const resp = await GetPlaceDetails(data);
+      const places = resp?.data?.places;
+      if (places && places.length > 0) {
+        const photos = places[0].photos;
+        if (photos && photos.length > 0) {
+          const photoIndex = photos.length > 3 ? 3 : 0;
+          const photoName = photos[photoIndex]?.name;
+          if (photoName) {
+            const PhotoUrl = PHOTO_REF_URL.replace('{NAME}', photoName);
+            setPhotoUrl(PhotoUrl);
+          }
+        }
+      }
+    } catch (err) {
+      console.error('Failed to load user trip photo:', err);
     }
-    const result = await GetPlaceDetails(data).then(resp => {
-      // console.log(resp.data.places[0].photos[3].name)
-      const PhotoUrl = PHOTO_REF_URL.replace('{NAME}', resp.data.places[0].photos[3].name)
-      setPhotoUrl(PhotoUrl)
-    })
-  }
+  };
 
   return (
     <Link to={`/view-trip/${trip?.id}`}>
       <div className='hover:scale-105 transition-all'>
-        <img src={photoUrl ? photoUrl : '/placeholder.jpg'} alt="" className='object-cover rounded-xl h-[220px]' />
+        <img src={photoUrl ? photoUrl : '/placeholder.svg'} alt="" className='object-cover rounded-xl h-[220px] w-full' />
         <div>
           <h2 className='font-bold text-lg'>{trip?.userSelection?.location?.label}</h2>
           <h2 className='text-sm text-gray-500'>{trip?.userSelection?.noOfDays} Days trip with {trip?.userSelection?.budget} budget. </h2>
