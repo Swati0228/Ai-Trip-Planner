@@ -66,9 +66,9 @@ function Header() {
       {/* Logo */}
       <div className="flex items-center gap-2">
         <img
-          src="https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/09/travel-logo-design.jpg"
+          src="/logo.svg"
           alt="Logo"
-          className="h-12 w-auto"
+          className="h-10 w-auto"
         />
         {/* Optional: Text beside logo */}
         {/* <span className="text-xl font-bold text-gray-800">TripAI</span> */}
