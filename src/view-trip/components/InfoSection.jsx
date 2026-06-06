@@ -13,13 +13,14 @@ function InfoSection({ trip }) {
       };
 
       const resp = await GetPlaceDetails(data);
-      const photoName = resp.data?.places?.[0]?.photos?.[9]?.name;
+      const photos = resp.data?.places?.[0]?.photos;
+      const photoName = photos && photos.length > 0 ? photos[0].name : null;
 
       if (photoName) {
-        const dynamicPhotoUrl = `https://places.googleapis.com/v1/${photoName}/media?key=${import.meta.env.VITE_GOOGLE_PLACES_API_KEY}&maxHeightPx=400&maxWidthPx=1000 `;
+        const dynamicPhotoUrl = `https://places.googleapis.com/v1/${photoName}/media?key=${import.meta.env.VITE_GOOGLE_PLACES_API_KEY}&maxHeightPx=400&maxWidthPx=1000`;
         setPhotoUrl(dynamicPhotoUrl);
       } else {
-        console.warn("No photo found");
+        console.warn("No photo found for location:", trip?.userSelection?.location?.label);
       }
     } catch (error) {
       console.error("Failed to fetch photo:", error);
@@ -36,7 +37,7 @@ function InfoSection({ trip }) {
       <div className="w-full bg-white">
         <div className="max-w-5xl mx-auto px-3 mt-5">
           <img
-            src={photoUrl || "https://via.placeholder.com/800x400?text=No+Image"}
+            src={photoUrl || "/placeholder.svg"}
             alt="Trip location"
             className="w-full h-[120px] md:h-[220px] lg:h-[400px] object-cover rounded-2xl shadow-md"
           />
