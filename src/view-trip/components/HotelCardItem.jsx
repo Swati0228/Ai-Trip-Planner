@@ -40,7 +40,7 @@ function HotelCardItem({ item }) {
       >
         <div className="hover:scale-105 transition-all cursor-pointer">
           <img
-            src={photoUrl || '/fallback-hotel.jpg'} // Use a real fallback image from /public
+            src={photoUrl || '/fallback-hotel.svg'} // Use a real fallback image from /public
             alt={item?.hotelName}
             className="rounded-xl h-[180px] w-full object-cover"
           />
