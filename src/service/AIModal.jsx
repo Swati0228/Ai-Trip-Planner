@@ -18,7 +18,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
     return `
   Generate a detailed travel itinerary for location: ${location}, for ${noOfDays} days for ${traveler} on a ${budget} budget.
   
-  1. Provide **at least 6 top-rated places per day** (under 'itinerary') with:
+  1. Provide **at least 4 top-rated places per day** (under 'itinerary') with:
      - placeName
      - placeDetails
      - placeImageUrl
