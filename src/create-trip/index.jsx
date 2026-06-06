@@ -98,38 +98,62 @@ function CreateTrip() {
       return;
     }
 
-    toast("Form generated.");
+    toast("Generating your trip...");
     setLoading(true);
 
-    const FINAL_PROMPT = AI_PROMPT
-      .replace('{location}', formData?.location?.label)
-      .replace('{totalDays}', formData?.noOfDays)
-      .replace('{traveler}', formData?.traveler)
-      .replace('{budget}', formData?.budget);
+    try {
+      const FINAL_PROMPT = AI_PROMPT
+        .replace('{location}', formData?.location?.label)
+        .replace('{totalDays}', formData?.noOfDays)
+        .replace('{traveler}', formData?.traveler)
+        .replace('{budget}', formData?.budget);
 
-    console.log("AI PROMPT: ", FINAL_PROMPT);
+      console.log("AI PROMPT: ", FINAL_PROMPT);
 
-    const result = await chatSession.sendMessage(FINAL_PROMPT);
-    const text = await result?.response?.text();
+      const result = await chatSession.sendMessage(FINAL_PROMPT);
+      const text = await result?.response?.text();
 
-    setLoading(false);
-    SaveAiTrip(text);
+      if (!text) {
+        throw new Error("No response received from AI model");
+      }
+
+      await SaveAiTrip(text);
+    } catch (error) {
+      console.error("❌ Error generating trip:", error);
+      toast("Failed to generate trip. Please try again.");
+      setLoading(false);
+    }
   };
 
   const SaveAiTrip = async (TripData) => {
-    setLoading(true);
-    const user = JSON.parse(localStorage.getItem("user") || '{}');
-    const docId = Date.now().toString();
+    try {
+      setLoading(true);
+      const user = JSON.parse(localStorage.getItem("user") || '{}');
+      const docId = Date.now().toString();
 
-    await setDoc(doc(db, "AiTrips", docId), {
-      userSelection: formData,
-      tripData: JSON.parse(TripData),
-      userEmail: user?.email,
-      id: docId
-    });
+      let parsedData;
+      try {
+        const jsonText = TripData.replace(/```json\n?|```/g, "").trim();
+        parsedData = JSON.parse(jsonText);
+      } catch (parseErr) {
+        console.error("❌ Failed to parse AI response text as JSON:", TripData);
+        throw new Error("Invalid AI response format");
+      }
 
-    setLoading(false);
-    navigate('/view-trip/' + docId);
+      await setDoc(doc(db, "AiTrips", docId), {
+        userSelection: formData,
+        tripData: parsedData,
+        userEmail: user?.email,
+        id: docId
+      });
+
+      navigate('/view-trip/' + docId);
+    } catch (error) {
+      console.error("❌ Error saving trip to database:", error);
+      toast("Failed to save trip. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -144,7 +168,7 @@ function CreateTrip() {
         <div>
           <h2 className='text-xl my-3 font-medium'>What is your destination of choice?</h2>
           <GooglePlacesAutocomplete
-            apiKey={import.meta.env.VITE_GOOGLE_PLACE_API_KEY}
+            apiKey={import.meta.env.VITE_GOOGLE_PLACES_API_KEY}
             selectProps={{
               place,
               onChange: (v) => { setPlace(v); handleInputChange('location', v); },
