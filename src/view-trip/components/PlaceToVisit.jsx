@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PlaceCardItem from './PlaceCardItem';
+import ExportPDF from './ExportPDF';
 
 function PlacesToVisit({ trip }) {
+  const itineraryRef = useRef(null);
+
   return (
     <div>
-      <h2 className='font-bold text-lg mt-10 mb-7'>Places to Visit</h2>
-      <div>
+      <div className='flex justify-between items-center mt-10 mb-7'>
+        <h2 className='font-bold text-lg'>Places to Visit</h2>
+        <ExportPDF
+          itineraryRef={itineraryRef}
+          tripDetails={{ location: trip?.userSelection?.location?.label }}
+        />
+      </div>
+
+      <div ref={itineraryRef}>
         {trip.tripData && typeof trip.tripData.itinerary === 'object' ? (
           Object.entries(trip.tripData.itinerary)
             .sort(([dayA], [dayB]) => {
